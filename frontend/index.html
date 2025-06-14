@@ -1,96 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather Forecast</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <h1>Weather Forecast App</h1>
 
     <form id="forecast-form">
-        <div class="form-group">
-            <label for="city">City:</label>
-            <select id="city" name="city" required>
-                <option value="ahmedabad">Ahmedabad</option>
-                <option value="mumbai">Mumbai</option>
-                <option value="delhi">Delhi</option>
-                <option value="bengaluru">Bengaluru</option>
-            </select>
-        </div>
+      <div class="form-group">
+        <label for="city">City:</label>
+        <select id="city" name="city" required>
+          <option value="ahmedabad">Ahmedabad</option>
+          <option value="mumbai">Mumbai</option>
+          <option value="delhi">Delhi</option>
+          <option value="bengaluru">Bengaluru</option>
+        </select>
+      </div>
 
-        <div class="form-group">
-            <label for="model_name">Model:</label>
-            <select id="model_name" name="model_name" required>
-                <option value="Ensemble">Ensemble (Average)</option>
-                <option value="LightGBM">LightGBM</option>
-                <option value="CatBoost">CatBoost</option>
-                <option value="ExtraTrees">Extra Trees</option>
-                <option value="XGBoost">XGBoost</option>
-                <option value="HistGradientBoosting">HistGradientBoosting</option>
-                <option value="Prophet">Prophet (Meta)</option>
-            </select>
-        </div>
+      <div class="form-group">
+        <label for="model_name">Model:</label>
+        <select id="model_name" name="model_name" required>
+          <option value="Ensemble">Ensemble (Average)</option>
+          <option value="LightGBM">LightGBM</option>
+          <option value="CatBoost">CatBoost</option>
+          <option value="ExtraTrees">Extra Trees</option>
+          <option value="XGBoost">XGBoost</option>
+          <option value="HistGradientBoosting">HistGradientBoosting</option>
+          <option value="Prophet">Prophet (Meta)</option>
+        </select>
+      </div>
 
-        <div class="form-group">
-            <label for="forecast_type">Forecast Duration:</label>
-            <select id="forecast_type" name="forecast_type" required>
-                <option value="48h">Next 48 Hours</option>
-                <option value="1week">Next 1 Week</option>
-                <option value="2weeks">Next 2 Weeks</option>
-            </select>
-        </div>
+      <div class="form-group">
+        <label for="forecast_type">Forecast Duration:</label>
+        <select id="forecast_type" name="forecast_type" required>
+          <option value="48h">Next 48 Hours</option>
+          <option value="1week">Next 1 Week</option>
+          <option value="2weeks">Next 2 Weeks</option>
+        </select>
+      </div>
 
-        <!-- Prophet-specific options -->
-        <div class="form-group prophet-options" style="display: none;">
-            <label for="prophet_extended">Extended Prophet Forecast:</label>
-            <select id="prophet_extended" name="prophet_extended">
-                <option value="">Standard Forecast</option>
-                <option value="1month">1 Month</option>
-                <option value="3months">3 Months</option>
-                <option value="6months">6 Months</option>
-                <option value="1year">1 Year</option>
-            </select>
-        </div>
-        
-        <div class="form-group prophet-options" style="display: none;">
-            <label for="include_bounds">Include Uncertainty Bounds:</label>
-            <input type="checkbox" id="include_bounds" name="include_bounds">
-        </div>
+      <!-- Prophet-specific options -->
+      <div class="form-group prophet-options" style="display: none">
+        <label for="prophet_extended">Extended Prophet Forecast:</label>
+        <select id="prophet_extended" name="prophet_extended">
+          <option value="">Standard Forecast</option>
+          <option value="1month">1 Month</option>
+          <option value="3months">3 Months</option>
+          <option value="6months">6 Months</option>
+          <option value="1year">1 Year</option>
+        </select>
+      </div>
 
-        <div class="form-group" id="day-of-week-group" style="display: none;">
-            <label for="day_of_week">Specific Day (Optional):</label>
-            <select id="day_of_week" name="day_of_week">
-                <option value="">-- All Week --</option>
-                <option value="0">Monday</option>
-                <option value="1">Tuesday</option>
-                <option value="2">Wednesday</option>
-                <option value="3">Thursday</option>
-                <option value="4">Friday</option>
-                <option value="5">Saturday</option>
-                <option value="6">Sunday</option>
-            </select>
-        </div>
+      <div class="form-group prophet-options" style="display: none">
+        <label for="include_bounds">Include Uncertainty Bounds :</label>
+        <input type="checkbox" id="include_bounds" name="include_bounds" />
+      </div>
 
-        <button type="submit">Get Forecast</button>
+      <div class="form-group" id="day-of-week-group" style="display: none">
+        <label for="day_of_week">Specific Day (Optional):</label>
+        <select id="day_of_week" name="day_of_week">
+          <option value="">-- All Week --</option>
+          <option value="0">Monday</option>
+          <option value="1">Tuesday</option>
+          <option value="2">Wednesday</option>
+          <option value="3">Thursday</option>
+          <option value="4">Friday</option>
+          <option value="5">Saturday</option>
+          <option value="6">Sunday</option>
+        </select>
+      </div>
+
+      <button type="submit">Get Forecast</button>
     </form>
 
-    <div id="model-metrics" class="metrics-container" style="display: none;">
-        <h2>Model Performance Metrics</h2>
-        <div id="metrics-loading" style="display: none;">Loading metrics...</div>
-        <div id="metrics-error" style="color: red; display: none;"></div>
-        <div id="metrics-data"></div>
+    <div id="model-metrics" class="metrics-container" style="display: none">
+      <h2>Model Performance Metrics</h2>
+      <div id="metrics-loading" style="display: none">Loading metrics...</div>
+      <div id="metrics-error" style="color: red; display: none"></div>
+      <div id="metrics-data"></div>
     </div>
 
     <div id="results">
-        <h2>Forecast Results</h2>
-        <div id="loading" style="display: none;">Loading...</div>
-        <div id="error-message" style="color: red; display: none;"></div>
-        <div id="forecast-data">
-        </div>
+      <h2>Forecast Results</h2>
+      <div id="loading" style="display: none">Loading...</div>
+      <div id="error-message" style="color: red; display: none"></div>
+      <div id="forecast-data"></div>
     </div>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
